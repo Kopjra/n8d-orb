@@ -47,8 +47,8 @@ cat > job.yaml << EOF
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: ${APP_NAME_SHORT}-${NODE_ENV_SHORT}-job-$RAND_ID
-  namespace: $NAMESPACE_NAME
+  name: "${APP_NAME_SHORT}-${NODE_ENV_SHORT}-job-$RAND_ID"
+  namespace: "$NAMESPACE_NAME"
 spec:
   backoffLimit: 0
   completions: 1
@@ -58,7 +58,7 @@ spec:
     spec:
       containers:
         - name: $APP_NAME_SHORT
-          image: $DOCKER_IMAGE
+          image: "$DOCKER_IMAGE"
           command: ["npm", "run", "${NPM_COMMAND}"]
           env:
           - name: DATABASE__SQL_CONNECTION_STRING
@@ -68,7 +68,7 @@ spec:
       restartPolicy: Never
 EOF
 
-kubectl apply -n $NAMESPACE_NAME -f job.yaml
+kubectl apply -n "$NAMESPACE_NAME" -f job.yaml
 
 # wait for completion as background process or fails at timeout
-kubectl wait --for=condition=complete job/${APP_NAME_SHORT}-${NODE_ENV_SHORT}-job-$RAND_ID -n=$NAMESPACE_NAME --timeout=300s
+kubectl wait --for=condition=complete "job/${APP_NAME_SHORT}-${NODE_ENV_SHORT}-job-$RAND_ID" -n "$NAMESPACE_NAME" --timeout=300s
