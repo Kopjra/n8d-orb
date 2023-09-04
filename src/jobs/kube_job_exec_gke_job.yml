@@ -1,0 +1,46 @@
+description: >
+  Sample description
+# What will this job do?
+
+executor: n8d-builder
+
+parameters:
+  sql_connection_string:
+    type: env_var_name
+    default: SQL_CONNECTION_STRING
+    description: "SQL connection string"
+  google_auth:
+    type: env_var_name
+    description: "Google JSON authentication token for service account"
+    default: GOOGLE_AUTH
+  app_name_short:
+    type: string
+    description: "Application short name (es: wias, wfservice) as used in naming Kubernetes resources"
+  node_env:
+    type: string
+    description: "NODE_ENV (supported only production, development, demo, staging, test)"
+  namespace_name:
+    type: string
+    description: "The Kubernetes namespace where this job will run"
+  docker_image:
+    type: string
+    description: "The Docker Image (es: eu.gcr.io/kopjra/wias:v1.2.3)"
+  npm_command:
+    type: string
+    description: "The npm run command to execute on Kubernetes (es: db:migrate)"
+  gcp_project:
+    type: string
+  gke_cluster_name:
+    type: string
+  gke_cluster_region:
+    type: string
+steps:
+  - kube_job_exec_gke_command:
+      app_name_short: << parameters.app_name_short >>
+      node_env: << parameters.node_env >>
+      namespace_name: << parameters.namespace_name >>
+      docker_image: << parameters.docker_image >>
+      npm_command: << parameters.npm_command >>
+      gcp_project: << parameters.gcp_project >>
+      gke_cluster_name: << parameters.gke_cluster_name >>
+      gke_cluster_region: << parameters.gke_cluster_region >>
