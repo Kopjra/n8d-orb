@@ -2,7 +2,7 @@ description: >
   Sample description
 # What will this job do?
 
-executor: n8d-builder
+executor: n8d_builder
 
 parameters:
   sql_connection_string:
