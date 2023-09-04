@@ -45,4 +45,3 @@ steps:
         GKE_CLUSTER_REGION: <<parameters.gke_cluster_region>>
       name: Hello Greeting
       command: <<include(scripts/kube_job_exec_gke.sh)>>
-            
