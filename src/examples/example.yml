@@ -6,8 +6,16 @@ description: >
 usage:
   version: 2.1
   orbs:
-    <orb-name>: <namespace>/<orb-name>@1.2.3
+    n8d-orb: kopjra/n8d-orb@1.2.3
   workflows:
     use-my-orb:
       jobs:
-        - <orb-name>/<job-name>
+        - n8d-orb/kube_job_exec_gke:
+            app_name_short: myapp
+            node_env: test
+            namespace_name: myns
+            docker_image: eu.gcr.io/mycompany/myproject:v1.2.3
+            npm_command: whatever
+            gcp_project: myproject
+            gke_cluster_name: mycluster
+            gke_cluster_region: europe-west1
